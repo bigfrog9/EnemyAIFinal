@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class Seeing : MonoBehaviour
 {
-    State state;
+    public State state;
+
+
 
     public GameObject Player;
 
@@ -22,9 +25,20 @@ public class Seeing : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other == Player)
+        if (other.gameObject==Player)
         {
+            Debug.Log("SEEN!");
             state.Seen = true;
+            
         }
+    }
+
+    public void OnTriggerExit(Collider other)
+   {
+         if (other.gameObject == Player)
+         {
+            Debug.Log("Unseen");
+            state.Seen = false;
+         }
     }
 }

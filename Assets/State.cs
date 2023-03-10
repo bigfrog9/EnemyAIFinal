@@ -99,6 +99,7 @@ public class State : MonoBehaviour
     {
         gameObject.GetComponent<Renderer>().material.color = Color.green;
 
+
         if (Seen)
         {
             CurrentState = CURRENTSTATE.CHASE;
@@ -205,7 +206,7 @@ public class State : MonoBehaviour
     public void runSearch()
     {
         detectsPlayer=false;
-        Seen = false;
+        //Seen = false;
         gameObject.GetComponent<Renderer>().material.color = Color.yellow;
 
 
