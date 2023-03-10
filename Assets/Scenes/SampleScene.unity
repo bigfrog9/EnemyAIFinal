@@ -265,6 +265,7 @@ MonoBehaviour:
   PlayerPos: {x: 0, y: 0, z: 0}
   Seen: 0
   speed: 1
+  timer: 0
 --- !u!195 &184764908
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1248,7 +1249,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-11690
+  m_Name: pb_Mesh25100
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1711,6 +1712,7 @@ GameObject:
   - component: {fileID: 1373527916}
   - component: {fileID: 1373527915}
   - component: {fileID: 1373527914}
+  - component: {fileID: 1373527919}
   m_Layer: 0
   m_Name: Sight
   m_TagString: Untagged
@@ -2258,6 +2260,19 @@ Transform:
   m_Father: {fileID: 184764912}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &1373527919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373527913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad30b2ef910b85640b9a08deeb5b7b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 7122816061490170813}
 --- !u!1 &1776504801
 GameObject:
   m_ObjectHideFlags: 0

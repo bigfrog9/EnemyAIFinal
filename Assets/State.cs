@@ -10,6 +10,8 @@ using UnityEngine.AI;
 public class State : MonoBehaviour
 {
 
+    Seeing seeing;
+
     public FirstPersonController controller;
 
     public NavMeshAgent enemy;
@@ -28,7 +30,7 @@ public class State : MonoBehaviour
 
     public Vector3 PlayerPos;
 
-    public bool Seen = false;
+    public bool Seen;
 
     public enum CURRENTSTATE
     { PATROL, CHASE, ATTACK, SEARCH, RETREAT };
@@ -156,7 +158,27 @@ public class State : MonoBehaviour
         {
             CurrentState = CURRENTSTATE.SEARCH;
 
-            //add player's last known location here
+            timer = 8;
+            if (Vector3.Distance(Player.transform.position, enemy.transform.position) <= 2)
+            {
+                CurrentState = CURRENTSTATE.CHASE;
+                detectsPlayer = true;
+
+            }
+
+            if (controller.currentSpeed >= 1.0f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 5)
+            {
+                CurrentState = CURRENTSTATE.CHASE;
+                detectsPlayer = true;
+
+            }
+
+            if (controller.currentSpeed >= 4.5f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 8)
+            {
+                CurrentState = CURRENTSTATE.CHASE;
+                detectsPlayer = true;
+
+            }
         }
 
         if (Vector3.Distance(Player.transform.position, enemy.transform.position) <= 2)
@@ -182,28 +204,66 @@ public class State : MonoBehaviour
     //going to last known player location and spinning for a while
     public void runSearch()
     {
+        detectsPlayer=false;
+        Seen = false;
         gameObject.GetComponent<Renderer>().material.color = Color.yellow;
 
 
-        if (Seen)
+        if (detectsPlayer == false&&timer<=4)
         {
-            CurrentState = CURRENTSTATE.CHASE;
-        }
+            this.gameObject.transform.Rotate(0, 359, 0);
+            
+            if (Vector3.Distance(Player.transform.position, enemy.transform.position) <= 2)
+            {
+                CurrentState = CURRENTSTATE.CHASE;
+                detectsPlayer = true;
 
-        if (Vector3.Distance(Player.transform.position, enemy.transform.position) <= 2)
-        {
-            detectsPlayer = true;
+            }
+
+            if (controller.currentSpeed >= 1.0f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 5)
+            {
+                CurrentState = CURRENTSTATE.CHASE;
+                detectsPlayer = true;
+
+            }
+
+            if (controller.currentSpeed >= 4.5f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 8)
+            {
+                CurrentState = CURRENTSTATE.CHASE;
+                detectsPlayer = true;
+
+            }
         }
 
         if (controller.currentSpeed >= 1.0f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 5)
         {
+            CurrentState = CURRENTSTATE.CHASE;
             detectsPlayer = true;
         }
 
         if (controller.currentSpeed >= 4.5f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 8)
         {
+            CurrentState = CURRENTSTATE.CHASE;
             detectsPlayer = true;
         }
+
+        if (timer <= 0&&detectsPlayer==false)
+        {
+            CurrentState = CURRENTSTATE.RETREAT;
+        }
+
+        if (Seen)
+        {
+            CurrentState = CURRENTSTATE.CHASE;
+            detectsPlayer = true;
+        }
+
+        if (Vector3.Distance(Player.transform.position, enemy.transform.position) <= 2)
+        {
+            CurrentState = CURRENTSTATE.CHASE;
+            detectsPlayer = true;
+        }
+
     }
 
     //returning to nearest patrol point
@@ -225,25 +285,17 @@ public class State : MonoBehaviour
 
         if (Vector3.Distance(Player.transform.position, enemy.transform.position) <= 2)
         {
-            detectsPlayer = true;
+            CurrentState = CURRENTSTATE.CHASE;
         }
 
         if (controller.currentSpeed >= 1.0f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 5)
         {
-            detectsPlayer = true;
+            CurrentState = CURRENTSTATE.CHASE;
         }
 
         if (controller.currentSpeed >= 4.5f && Vector3.Distance(Player.transform.position, enemy.transform.position) <= 8)
         {
-            detectsPlayer = true;
-        }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other == Player)
-        {
-            Seen = true;
+            CurrentState = CURRENTSTATE.CHASE;
         }
     }
 }
